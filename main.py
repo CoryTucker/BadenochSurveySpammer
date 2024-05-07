@@ -12,7 +12,7 @@ from data import xPaths as xPaths
 from questionResponse import questionResponse as questionResponse  # love this import
 import concurrent.futures
 
-
+erqwera
 debugMode = False
 randomWindowSize = False
 # randomizes the window size. It's toggleable because it can be obnoxious.
@@ -108,8 +108,8 @@ def answer_survey():
         # ## submit.click()
     else:
         input()
-    global surveyCompletedCountcount
-    surveyCompletedCountcount += 1
+    global surveyCompletedCount
+    surveyCompletedCount += 1
     global currentThreads
     currentThreads -= 1
     browser.quit()
@@ -127,7 +127,10 @@ def get_random_window_size():
     return '{0},{1}'.format(random.randrange(562, 2134), random.randrange(850, 2687))
 
 
+currentThreads = 0
+surveyCompletedCount = 0
 if __name__ == '__main__':
+    print('e')
     url = data.url
     questionResponse = questionResponse()
     if not enableThreading:
