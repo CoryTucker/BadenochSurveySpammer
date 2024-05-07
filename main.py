@@ -1,9 +1,11 @@
 import random
+from fake_useragent import UserAgent
 import time
 import re
 import selenium
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
 import math
 import data
 from data import xPaths as xPaths
@@ -12,12 +14,18 @@ from questionResponse import questionResponse as questionResponse  # love this i
 url = data.url
 questionResponse = questionResponse()
 debugMode = True
+randomWindowSize = False
 
 
 def answer_survey():
-    browser = webdriver.Chrome()
+    options = Options()
+    if randomWindowSize:
+        options.add_argument("window-size={0}".format(get_random_window_size()))
+    ua = UserAgent()
+    user_agent = ua.random
+    options.add_argument(f'user-agent={user_agent}')
+    browser = webdriver.Chrome(options=options)
     browser.get(url)
-
     # individual randomisation for the survey
 
     # if the fake 'user' knows that they can tick multiple items in check boxes
@@ -66,7 +74,7 @@ def answer_survey():
                 # choose how many items we'll pick out of the remaining ones.
                 # the math.pow makes the distribution non-linear (biased toward fewer items) for added randomness
                 num_of_items = math.ceil(
-                    math.pow(random.random(), 3)*len(check_boxes)
+                    math.pow(random.random(), 3) * len(check_boxes)
                 )
                 for i in range(num_of_items):  # click num_of_items random items in the check_boxes
                     # selects a random item from the check_box and clicks it
@@ -95,6 +103,19 @@ def answer_survey():
         # ## submit.click()
     else:
         input()
+    browser.quit()
+
+
+def get_random_window_size():
+    # really ugly way of selecting a random windows size based on percentages outlined in data
+    num = random.random()
+    for i in data.displayResolutions:
+        if i[1] > num:
+            return num
+        else:
+            num -= i[1]
+    # if we still haven't found a suitable size, just pick something random
+    return '{0},{1}'.format(random.randrange(562, 2134), random.randrange(850, 2687))
 
 
 if __name__ == '__main__':

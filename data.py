@@ -1,4 +1,3 @@
-
 # survey url (it just felt wrong to put this in main.py while this file exists)
 url = 'https://www.smartsurvey.co.uk/s/55NP2K/'
 
@@ -28,3 +27,16 @@ questions = {
     r'*What is the name*produced this policy*': '',
     r'*what is/are the name/s*use this policy*': '',
 }
+
+displayResolutions = [
+    ('1366,768', .22),
+    ('1920,1080', .20),
+    ('1536,864', .085),
+    ('1440,900', .07),
+    ('1280,720', .048),
+    ('1600,900', .041),
+    ('1280,800', .029),
+    ('1280,1024', .026),
+    ('1024,768', .025),
+    ('768,1024', .024),
+]
