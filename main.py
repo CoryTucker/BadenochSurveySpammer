@@ -10,11 +10,15 @@ import math
 import data
 from data import xPaths as xPaths
 from questionResponse import questionResponse as questionResponse  # love this import
+import concurrent.futures
 
 url = data.url
 questionResponse = questionResponse()
-debugMode = True
+debugMode = False
 randomWindowSize = False
+maxThreads = 24
+# not linked to cpu threads -
+# this is more to do with how many browser windows your computer can cope with having open
 
 
 def answer_survey():
@@ -103,6 +107,10 @@ def answer_survey():
         # ## submit.click()
     else:
         input()
+    global count
+    count += 1
+    global currentThreads
+    currentThreads -= 1
     browser.quit()
 
 
@@ -119,6 +127,14 @@ def get_random_window_size():
 
 
 if __name__ == '__main__':
-    answer_survey()
-    if debugMode:
-        input()
+    currentThreads = 0
+    next_window = 0
+    count = 0
+    pool = concurrent.futures.ThreadPoolExecutor(max_workers=maxThreads)
+    while True:
+        if currentThreads < maxThreads:
+            pool.submit(answer_survey)
+            currentThreads += 1
+        time.sleep(0.1)
+        print('surveysCompleted: {0}'.format(count))
+
