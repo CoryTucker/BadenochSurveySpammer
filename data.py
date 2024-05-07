@@ -21,12 +21,12 @@ xPaths = {
 # todo
 # contains regex expressions which match one of each of the 4 questions we need to generate a response for.
 # the matched question is paired with a gpt prompt which i haven't made yet.
-questions = {
-    r'*Please attach your example*': '',
-    r'*What issues about how single-sex services or spaces operate*': '',
-    r'*What is the name*produced this policy*': '',
-    r'*what is/are the name/s*use this policy*': '',
-}
+questions = [
+    [r'.*Please attach your example.*', 'testPrompt'],
+    [r'.*What issues about how single-sex services or spaces operate.*', ''],
+    [r'.*What is the name.*produced this policy.*', ''],
+    [r'.*what is/are the name/s.*use this policy.*', ''],
+]
 
 displayResolutions = [
     ('1366,768', .22),

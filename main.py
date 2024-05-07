@@ -12,8 +12,10 @@ from data import xPaths as xPaths
 from questionResponse import questionResponse as questionResponse  # love this import
 import concurrent.futures
 
+
 debugMode = False
 randomWindowSize = False
+# randomizes the window size. It's toggleable because it can be obnoxious.
 enableThreading = False
 maxThreads = 5
 # not linked to cpu threads -
